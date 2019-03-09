@@ -43,18 +43,9 @@ public class ContractConfiguration {
             public Collection<? extends ContractInfo> getContractInfos() {
                 var contractInfos = new ArrayList<EthereumContractInfo<?>>();
 
-                try {
-                    // TODO add a contract info object for ReceiptContract
-                    contractInfos.add(
-                            new EthereumContractInfoBuilder<>(ReceiptContract.class)
-                                    .withIdentifier("receiptContract")
-                                    .withAbi(new ClassPathResource("ReceiptContract/ReceiptContract.abi").getFile())
-                                    .withBinary(new ClassPathResource("ReceiptContract/ReceiptContract.bin").getFile())
-                            .build()
-                    );
-                }catch (IOException e){
-                    throw new RuntimeException(e);
-                }
+                // TODO add a contract info object for ReceiptContract
+                // contractInfos.add( ... );
+
                 return contractInfos;
             }
         };

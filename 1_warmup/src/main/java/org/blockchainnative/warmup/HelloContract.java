@@ -23,14 +23,10 @@ public interface HelloContract extends EthereumSmartContract<HelloContract> {
     // TODO Task 1.1.1: add method for smart contract function 'hello'
     // take a look a the function 'hello' defined in resources/HelloContract/HelloContract.sol
     // and declare a Java method that matches the functions signature
-    @ContractMethod
-    String hello(String name);
 
     // TODO Task 1.1.1: add event method for smart contract event 'greeted'
     // take a look a the event 'greeted' defined in resources/HelloContract/HelloContract.sol
     // and declare a Java method that matching the requirements defined by the annotation org.blockchainnative.annotations.ContractEvent
-    @ContractEvent
-    Observable<HelloEvent> greeted();
 
     /**
      * Sample event type for the event 'greeted' specified in 'HelloContract.sol'

@@ -19,13 +19,13 @@ public class HashTypeConverter implements TypeConverter<Hash, byte[]> {
     {
         // TODO Convert hash to byte[]
         // Check the methods provided by Hash
-        return hash.getHashAsBytes();
+        throw new RuntimeException("Implement me");
     }
 
     @Override
     public Hash from(byte[] bytes)
     {
         // TODO create a Hash object from byte[]
-        return new Hash(bytes);
+        throw new RuntimeException("Implement me");
     }
 }

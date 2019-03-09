@@ -19,13 +19,13 @@ public class HashTypeConverter implements TypeConverter<Hash, String> {
     {
         // TODO Convert hash to String
         // Check the methods provided by Hash
-        return hash.getHashAsHexString();
+        throw new RuntimeException("Implement me");
     }
 
     @Override
     public Hash from(String string)
     {
         // TODO create a Hash object from String
-        return new Hash(string);
+        throw new RuntimeException("Implement me");
     }
 }

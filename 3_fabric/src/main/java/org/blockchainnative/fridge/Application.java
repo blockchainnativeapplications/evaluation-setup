@@ -69,7 +69,6 @@ public class Application implements CommandLineRunner {
                 LOGGER.info("Installing ReceiptContract on '{}'", peerOrg1);
                 // TODO install the contract on peer0.org1.example.com with the correct user for organization 1 (see at the end of the class)
                 // Use the install method on the contract wrapper
-                receiptContract.install(getOrg1Admin(), new HashSet<>() {{ add(peerOrg1); }});
 
             }
 
@@ -77,19 +76,16 @@ public class Application implements CommandLineRunner {
                 LOGGER.info("Installing ReceiptContract on '{}'", peerOrg2);
                 // TODO install the contract on peer0.org2.example.com with the correct user for organization 2 (see at the end of the class)
                 // Use the install method on the contract wrapper
-                receiptContract.install(getOrg2Admin(), new HashSet<>() {{ add(peerOrg2); }});
 
             }
 
             // TODO instantiate the contract using either the admin user of Org1 or Org2
             // Use the instantiate method on the contract wrapper
             LOGGER.info("Instantiating ReceiptContract ...");
-            receiptContract.instantiate(getOrg1Admin());
 
 
             // TODO update the contract info in the contract registry
             LOGGER.info("Finished deployment, updating contract registry");
-            contractRegistry.addOrUpdateContractInfo(receiptContract.getContractInfo());
 
         }
 
@@ -101,9 +97,7 @@ public class Application implements CommandLineRunner {
                 .subscribe(receiptAddedEvent -> hashes.add(receiptAddedEvent.sha256Hash));
 
         // TODO take enough items from the fridge so that the it needs to be restocked
-        fridge.takeItem(Soda.class);
-        fridge.takeItem(Soda.class);
-        fridge.takeItem(Cheese.class);
+        // fridge.takeItem( ... )
 
         var receipt = fridge.restock();
 
@@ -118,7 +112,7 @@ public class Application implements CommandLineRunner {
             // which were raised until now are already collected in the list 'hashes'
             var hash = receipt.get().getSHA256Hash();
 
-            if (hashes.contains(hash)) {
+            if (false) {
                 LOGGER.info("Receipt Hash found on blockchain!");
             } else {
                 LOGGER.error("Receipt Hash not found on blockchain!");
@@ -128,7 +122,6 @@ public class Application implements CommandLineRunner {
         }
 
         // TODO persist the contract info on the file system
-        contractRegistry.persist();
     }
 
     /**

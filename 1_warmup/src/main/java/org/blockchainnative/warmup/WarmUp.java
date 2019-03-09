@@ -37,12 +37,7 @@ public class WarmUp {
         // TODO Task 1.1.2:  create a contract info object for HelloContract using EthereumContractInfoBuilder
         // set the contract binary and ABI and make sure that the method 'hello' and the event 'greeted' are registered
         // explicitly or annotated with 'ContractMethod'/'ContractEvent' on the interface.
-        var identifier = "helloContract";
-        EthereumContractInfo<HelloContract> contractInfo = new EthereumContractInfoBuilder<>(HelloContract.class)
-                .withIdentifier(identifier)
-                .withAbi(new File(WarmUp.class.getClassLoader().getResource("HelloContract/HelloContract.abi").getFile()))
-                .withBinary(new File(WarmUp.class.getClassLoader().getResource("HelloContract/HelloContract.bin").getFile()))
-                .build();
+        EthereumContractInfo<HelloContract> contractInfo = null;
 
         // TODO Task 1.1.3:  create an instance of FileSystemContractRegistry
         //  - The basePath shall point to the folder "contractInfo" in the project directory
@@ -52,33 +47,26 @@ public class WarmUp {
         //  - Lastly add the contract info object to the registry
         //    Beware that in subsequent executions the contract info will be loaded from the file system, therefore make sure
         //    to only add the object created in 1.1.2 if the registry does not yet contain an item with the same identifier.
-        FileSystemContractRegistry contractRegistry = new FileSystemContractRegistry(Paths.get("contractInfo"));
-        contractRegistry.registerObjectMapperModule(new EthereumMetadataModule());
-        contractRegistry.load();
-        contractRegistry.addContractInfoIfNotExisting(contractInfo);
+        FileSystemContractRegistry contractRegistry = null;
 
         // TODO Task 1.1.4:  create an EthereumContractWrapperGenerator with the use the class' static methods
-        EthereumContractWrapperGenerator contractWrapperGenerator = new EthereumContractWrapperGenerator(getClientFactory(), getTransactionManagerFactory(), getTypeConverters());
+        EthereumContractWrapperGenerator contractWrapperGenerator = null;
 
         // TODO Task 1.1.4:  generate a wrapper for the HelloContract interface using the EthereumContractWrapperGenerator
         // Use the contractRegistry to retrieve the contract info by its identifier instead of using the one created in Task 1.1.2
-        HelloContract helloContract = contractWrapperGenerator.generate(contractRegistry.getContractInfo(identifier));
+        HelloContract helloContract = null;
 
         // TODO Task 1.1.5: verify if the contract is deployed by checking the contract info's address and deploy the helloContract if required
         // Use the contract wrapper to retrieve the contract info
-        if(!helloContract.getContractInfo().isDeployed()){
-            helloContract.deploy("Hello");
-        }
+
 
         // TODO Task 1.1.6:  call subscribe on the observable obtained through the contract's 'greeted' event method using the observer from getHelloEventObserver()
-        helloContract.greeted().subscribe(getHelloEventObserver());
 
 
         // TODO Task 1.1.7: call the HelloContract, greet somebody and print the greeting
-        System.out.println(helloContract.hello("World"));
+
 
         // TODO Task 1.1.8:  persist the contract info by using the registry
-        contractRegistry.persist();
 
     }
 

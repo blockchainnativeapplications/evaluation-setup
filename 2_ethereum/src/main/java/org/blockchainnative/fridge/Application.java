@@ -13,7 +13,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
@@ -54,21 +53,18 @@ public class Application implements CommandLineRunner {
     public void run(String... args) {
 
         // TODO make sure, that the injected ReceiptContract has been deployed and update the contractRegistry
-        if (!receiptContract.getContractInfo().isDeployed()) {
+        if (false) {
             LOGGER.info("Contract info states that ReceiptContract is not deployed. Deploying...");
-            receiptContract.deploy();
+
 
             LOGGER.info("Finished deployment, updating contract registry");
-            contractRegistry.addOrUpdateContractInfo(receiptContract.getContractInfo());
+
         }
 
         var fridge = prepareRefrigerator(receiptContract);
 
         // TODO take enough items from the fridge so that it needs to be restocked
         // If it contains less items than specified in its minimum supply, restock will place an order
-        fridge.takeItem(Soda.class);
-        fridge.takeItem(Soda.class);
-        fridge.takeItem(Cheese.class);
 
         var receipt = fridge.restock();
 
@@ -77,7 +73,7 @@ public class Application implements CommandLineRunner {
             var hash = receipt.get().getSHA256Hash();
 
 
-            if (receiptContract.getReceiptHashes().contains(hash)) {
+            if (false) {
                 LOGGER.info("Receipt Hash found on blockchain!");
             } else {
                 LOGGER.error("Receipt Hash not found on blockchain!");
@@ -87,11 +83,6 @@ public class Application implements CommandLineRunner {
         }
 
         // TODO persist the contract info on the file system
-        try {
-            contractRegistry.persist();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**

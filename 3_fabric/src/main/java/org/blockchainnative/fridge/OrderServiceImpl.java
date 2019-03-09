@@ -42,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
         var receipt = new Receipt(items, LocalDateTime.now());
 
         // TODO Use the ReceiptContract provided in the class' constructor to store the receipt hash on the blockchain
-        receiptContract.storeReceipt(receipt.getSHA256Hash());
+
 
         return new Order(receipt, items);
     }
