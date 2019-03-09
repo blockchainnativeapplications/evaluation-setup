@@ -1,0 +1,10 @@
+version: '2.1'
+services:
+  node:
+    image: ethereum/client-go:release-1.8
+    entrypoint: sh -c "geth init /opt/genesis.json && geth --networkid 42 --rpc --rpcaddr 0.0.0.0 --mine --minerthreads 1 --etherbase 0x65a3b696e16079a3569747f37aa6d4be3ed104ae"
+    volumes:      
+      - ./genesis.json:/opt/genesis.json
+    ports:
+      - "8545:8545"
+      - "30303:30303"

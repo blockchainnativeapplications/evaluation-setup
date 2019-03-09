@@ -1,0 +1,14 @@
+identities:
+  org1: {"role": {"name": "peer", "mspId": "Org1MSP"}}
+  org2: {"role": {"name": "peer", "mspId": "Org2MSP"}}
+  org1admin: {"role": {"name": "admin", "mspId": "Org1MSP"}}
+  org2admin: {"role": {"name": "admin", "mspId": "Org2MSP"}}
+
+policy:
+  2-of: # signed by one of these groups can be <n>-of  where <n> is any digit 2-of, 3-of etc..
+  - 1-of:
+    - signed-by: "org1"      # a reference to one of the identities defined above.
+    - signed-by: "org1admin"
+  - 1-of:
+    - signed-by: "org2"
+    - signed-by: "org2admin"

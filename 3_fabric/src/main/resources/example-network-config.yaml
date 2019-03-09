@@ -1,0 +1,79 @@
+
+name: "Network-Config-Example"
+
+#
+# Schema version of the content. Used by the SDK to apply the corresponding parsing rules.
+#
+version: 1.0.0
+
+
+client:
+  # Which organization does this application instance belong to? The value must be the name of an org
+  # defined under "organizations"
+  organization: Org1
+
+  peer:
+    timeout:
+    connection: 10s
+    response: 600s
+
+channels:
+  # name of the channel
+  examplechannel:
+    orderers:
+    - orderer.example.com
+
+    peers:
+      peer0.org1.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer0.org2.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+
+
+    # [Optional]. what chaincodes are expected to exist on this channel? The application can use
+    # this information to validate that the target peers are in the expected state by comparing
+    # this list with the query results of getInstalledChaincodes() and getInstantiatedChaincodes()
+    chaincodes:
+      #- hello:1.0
+
+organizations:
+  Org1:
+    mspid: Org1MSP
+    peers:
+    - peer0.org1.example.com
+
+  Org2:
+    mspid: Org2MSP
+    peers:
+    - peer0.org2.example.com
+
+orderers:
+  orderer.example.com:
+    url: grpc://localhost:7050
+
+    grpcOptions:
+      grpc-max-send-message-length: 15
+      grpc.keepalive_time_ms: 360000
+      grpc.keepalive_timeout_ms: 180000
+
+peers:
+  peer0.org1.example.com:
+    url: grpc://localhost:7051
+    eventUrl: grpc://localhost:7053
+    grpcOptions:
+      grpc.http2.keepalive_time: 15
+
+  # Can't connect to other orgs event hubs
+  # see https://jira.hyperledger.org/browse/FABJ-175
+
+  peer0.org2.example.com:
+    url: grpc://localhost:8051
+    #eventUrl: grpc://localhost:8053
+    grpcOptions:
+      grpc.http2.keepalive_time: 15
